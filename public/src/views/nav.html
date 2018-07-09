@@ -1,0 +1,61 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<div class="nav-head">
+	<!-- site logo -->
+	<a href="#/dashboard" class="site-logo text-uppercase">
+		<span class="text" style="margin-left: 0px;">UNIVERSIDAD</label></span>
+	</a>
+</div>
+
+
+<!-- Site nav (vertical) -->
+
+<nav class="site-nav clearfix" role="navigation" ng-controller="NavCtrl">
+	<div class="profile clearfix md15">
+		<img src="images/admin.jpg" alt="admin">
+		<div class="group">
+			<h5 class="name">Universidad</h5>
+			<small class="desig text-uppercase">Administrador</small>
+		</div>
+	</div>
+
+	<!-- navigation -->
+	<ul class="list-unstyled clearfix nav-list lg15" collapse-nav-accordion highlight-active>
+		<li ng-show="usuario.mi_perfil == 1">
+			<a href="#/dashboard" md-ink-ripple>
+				<i class="ion ion-monitor"></i>
+				<span class="text">Reporte General</span>
+			</a>
+		</li>
+<!-- ROBERTO....este -->
+		
+<!-- a este -->
+		<li>
+			<a href="#/carreras" md-ink-ripple>
+				<i class="ion ion-compose"></i>
+				<span class="text">Carreras</span>
+			</a>
+		</li>
+		<!--  -->
+		<li>
+			<a href="#/sedes" md-ink-ripple>
+				<i class="ion ion-person-stalker"></i>
+				<span class="text">Sedes</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/roles/usuarios" md-ink-ripple>
+				<i class="ion ion-person-stalker"></i>
+				<span class="text">Usuarios</span>
+			</a>
+		</li>
+
+		
+		
+	</ul> <!-- #end navigation -->
+</nav>
+
+
+<!-- nav-foot -->
+<footer class="nav-foot">
+	<p>2018 &copy; <span>RE/MAX</span></p>
+</footer>

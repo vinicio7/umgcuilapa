@@ -1,0 +1,68 @@
+<div class="modal-style">
+    <div class="modal-header clearfix">
+        <h4 ng-if="action == 'new'" class="modal-title">Nuevo usuario</h4>
+        <h4 ng-if="action == 'update'" class="modal-title">Editar usuario</h4>
+        <h4 ng-if="action == 'delete'" class="modal-title">Eliminar usuario</h4>
+        <span class="close ion ion-android-close" ng-click="modalClose()"></span>
+    </div>
+    <div class="modal-body">
+        <div class="row form-group" ng-if="action == 'delete'">
+            <h3>¿Está seguro de eliminar este usuario?</h3>
+        </div>
+        <form class="form-horizontal" name="form" ng-if="action != 'delete'" action="javascript:;" novalidate>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" ng-model="usuario.nombre" required>
+                </div>
+                <div class="col-sm-6">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" ng-model="usuario.usuario" required>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-6" ng-if="action == 'new'">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" ng-model="usuario.contra">
+                </div>
+                <div class="col-sm-6">
+                    <label>Tipo</label>
+                    <select class="form-control" ng-model="usuario.tipo" >
+                        <option disabled> Seleccione un estado</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Usuario</option>
+                        <option value="3">Agente de Servicio</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <label>Email</label>
+                    <input type="email" class="form-control" ng-model="usuario.email">
+                </div>
+                <div class="col-sm-6">
+                    <label>Estado</label>
+                      <select class="form-control" ng-model="usuario.estado" >
+                        <option disabled> Seleccione un estado</option>
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                        <option value="3">Suspendido</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-danger" ng-click="modalClose()">Cerrar</button>
+                    <button class="btn btn-success" ng-if="action == 'new'" ng-disabled="form.$invalid" ng-click="saveData(usuario)">Registrar</button>
+                    <button class="btn btn-success" ng-if="action == 'update'"  ng-click="saveData(usuario)">Editar</button>
+                </div>
+            </div>
+        </form>
+        <div class="row form-group">
+            <div class="col-sm-12 text-right">
+                <button class="btn btn-success" ng-if="action == 'delete'" ng-click="modalClose()">Cerrar</button>
+                <button class="btn btn-danger" ng-if="action == 'delete'" ng-click="saveData(usuario)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
