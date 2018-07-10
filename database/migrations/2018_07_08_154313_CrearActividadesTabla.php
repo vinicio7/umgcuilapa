@@ -20,7 +20,6 @@ class CrearActividadesTabla extends Migration
             $table->text('titulo');
             $table->text('descripcion');
             $table->integer('id_usuario')->nullable();
-            $table->date('fecha_actividad');
             $table->timestamps();
         });
     }

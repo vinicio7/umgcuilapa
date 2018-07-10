@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('sedes',	'DataController@consultarSedes');
+Route::get('preguntas', 'DataController@preguntas');
+Route::get('galeria', 'DataController@galeria');
+Route::get('informacion/universidad', 'DataController@informacionUniversidad');
+Route::get('ubicacion/sedes', 'DataController@ubicacionSedes');
+
+Route::get('actividades', 'DataController@actividades');
+Route::get('informacion/sedes',	'DataController@informacionSedes');
+Route::get('lista/carreras', 	'DataController@listaCarreras');
+
 Route::get('/', function () {
     return redirect('src');
 });

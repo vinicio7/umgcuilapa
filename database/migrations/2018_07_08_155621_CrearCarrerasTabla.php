@@ -17,6 +17,7 @@ class CrearCarrerasTabla extends Migration
             $table->increments('id');
             $table->integer('id_sede_extension');
             $table->text('nombre');
+            $table->text('grado');
             $table->text('imagen');
             $table->text('plan');
             $table->text('descripcion');
