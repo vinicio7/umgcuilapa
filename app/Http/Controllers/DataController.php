@@ -21,7 +21,6 @@ class DataController extends Controller
     protected $consulta1   = array();
     protected $consulta2   = array();
     protected $consulta3   = array();
-    protected $consulta4   = array();
 
 	 public function consultarSedes() {
 
@@ -192,42 +191,74 @@ class DataController extends Controller
         }
     }
 
-          public function listaCarreras(Request $request) {
+    public function listaCarreras(Request $request) {
 
         try {
 
-            $consulta1= Carreras::select('nombre')->where('id_sede_extension',
-            $request->input('id_sede_extension'))->where('plan', 'Sabado')->where('grado',['ING','LIC'])->get();
+        //    dd ($request->input('id_sede_extension'));
 
-            $consulta2= Carreras::select('nombre')->where('id_sede_extension',$request->input('id_sede_extension'))->where('plan', 'Domingo')->where('grado',['ING','LIC'])->get();
+            //explode devuelve un array
+            $grados = explode(", ", $request->input("grado"));
+            //$grados = ['ING', 'LIC']
 
-        	$consulta3= Carreras::select('nombre')->where('id_sede_extension',$request->input('id_sede_extension'))->where('grado','POS')->get();
+            if($request->input("plan")=="Sabado" && $request->input("grado")!= "POS"){
+                $consulta1= Carreras::select('nombre')->where('id_sede_extension', $request->input('id_sede_extension'))->where('plan', 'Sabado')->whereIn('grado', $grados)->get();
+                $this->consulta1    = $consulta1;
+            }
 
-            $consulta4= Carreras::select('nombre')->where('id_sede_extension',$request->input('id_sede_extension'))->where('plan','Sabado')->where('grado',['ING','LIC'])->get();
-       		
+            if($request->input("plan")=="Domingo"){
+                $consulta2= Carreras::select('nombre')->where('id_sede_extension',$request->input('id_sede_extension'))->where('plan', 'Domingo')->whereIn('grado', $grados)->get();
+                $this->consulta2    = $consulta2;
+            }
+
+            if($request->input("plan")=="Sabado" && $request->input("grado")=="POS"){
+                $consulta3= Carreras::select('nombre')->where('id_sede_extension',$request->input('id_sede_extension'))->where('grado','POS')->get();
+                $this->consulta3    = $consulta3;
+            }
+            
             $this->status_code = 200;
             $this->result      = true;
-           // $this->message     = 'Registros consultados correctamente';
-            $this->records     = $records;
-            $this->$consulta1    = $consulta1;
-            $this->$consulta2    = $consulta2;
-            $this->$consulta3    = $consulta3;
-            $this->$consulta4    = $consulta4;
+            $this->message     = 'Registros consultados correctamente';
 
         } catch (\Exception $e) {
             $this->status_code = 400;
             $this->result      = false;
-           // $this->message     = env('APP_DEBUG')?$e->getMessage():$this->message;
+            $this->message     = env('APP_DEBUG')?$e->getMessage():$this->message;
 
         }finally{
             $response = [
                 'result'  => $this->result,
                 'message' => $this->message,
-                'records' => $this->records,
                 'consulta1' => $this->consulta1,
                 'consulta2' => $this->consulta2,
                 'consulta3' => $this->consulta3,
-                'consulta4' => $this->consulta4,
+                
+            ];
+
+            return response()->json($response, $this->status_code);
+        }
+    }
+
+     public function informacionCarreras(Request $request) {
+
+        try {
+            
+            $records = Carreras::select('nombre', 'imagen', 'plan', 'descripcion', 'ubicacion', 'duracion', 'horario')->where('id_sede_extension',$request->input('id_sede_extension'))
+            ->where('id', $request->input('id'))->get();  
+    
+            $this->status_code = 200;
+            $this->result      = true;
+            $this->message     = 'Registros consultados correctamente';
+            $this->records     = $records;
+        } catch (\Exception $e) {
+            $this->status_code = 400;
+            $this->result      = false;
+            $this->message     = env('APP_DEBUG')?$e->getMessage():$this->message;
+        }finally{
+            $response = [
+                'result'  => $this->result,
+                'message' => $this->message,
+                'records' => $this->records,
             ];
 
             return response()->json($response, $this->status_code);

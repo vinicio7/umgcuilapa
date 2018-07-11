@@ -20,6 +20,7 @@ Route::get('ubicacion/sedes', 'DataController@ubicacionSedes');
 Route::get('actividades', 'DataController@actividades');
 Route::get('informacion/sedes',	'DataController@informacionSedes');
 Route::get('lista/carreras', 	'DataController@listaCarreras');
+Route::get('informacion/carreras', 'DataController@informacionCarreras');
 
 Route::get('/', function () {
     return redirect('src');
